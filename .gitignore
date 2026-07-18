@@ -3,3 +3,6 @@ __pycache__/
 .env
 .venv/
 venv/
+entity_secret.local.txt
+circle_public_key.pem
+test_payer.local.txt
