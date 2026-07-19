@@ -23,8 +23,7 @@ import os
 import sys
 
 from eth_account import Account
-
-from x402 import x402Client, x402ClientConfig, SchemeRegistration
+from x402 import SchemeRegistration, x402Client, x402ClientConfig
 from x402.http.clients import wrapHttpxWithPayment
 from x402.mechanisms.evm.exact import ExactEvmScheme
 

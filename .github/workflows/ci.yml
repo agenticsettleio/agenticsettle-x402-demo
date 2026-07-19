@@ -1,0 +1,51 @@
+name: CI
+
+# These scripts talk to live Circle/x402/AgenticSettle services and real
+# (testnet) wallets, so there's no meaningful way to run them end-to-end in
+# CI without provisioning secrets here. What CI *can* verify without any
+# credentials: every script is syntactically valid and importable, and
+# passes lint. All env-var-dependent logic in this repo lives inside
+# functions gated by `if __name__ == "__main__":` (or, in
+# x402_verify_gateway.py, behind module-level defaults that don't require
+# any env var to be set) — so importing each module performs no network
+# calls and needs no secrets.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install "ruff>=0.6.0"
+      - run: ruff check .
+
+  smoke-import:
+    name: Import smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install "x402[fastapi,httpx]" httpx python-dotenv uvicorn pycryptodome eth-account fastapi
+      - name: Import every script
+        run: |
+          python -c "
+          import circle_client
+          import create_wallet
+          import generate_entity_secret
+          import generate_test_payer
+          import test_payment
+          import x402_verify_gateway
+          print('All modules imported successfully')
+          "
