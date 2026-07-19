@@ -37,7 +37,7 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         run: |
-          pip install "x402[fastapi,httpx]" httpx python-dotenv uvicorn pycryptodome eth-account fastapi
+          pip install "x402[fastapi,httpx,evm]" httpx python-dotenv uvicorn pycryptodome eth-account fastapi
       - name: Import every script
         run: |
           python -c "
