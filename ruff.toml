@@ -1,0 +1,12 @@
+line-length = 110
+target-version = "py311"
+
+[lint]
+# Explicit, deterministic ruleset — without this, `ruff check .` falls back to
+# whatever a bare `pip install "ruff>=0.6.0"` resolves to that day, and CI has
+# gone red before purely from a ruff release changing its own defaults (twice
+# now, across two of our repos).
+select = ["E", "F", "W", "I", "UP"]
+ignore = [
+  "E501",  # line length is handled by formatter where it matters
+]
