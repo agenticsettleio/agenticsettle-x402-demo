@@ -36,7 +36,7 @@ has been run and verified end to end on Base Sepolia testnet.
 ### 1. Run the paywalled verification server
 
 ```bash
-pip install "x402[fastapi]" httpx python-dotenv uvicorn
+pip install "x402[fastapi,evm]" httpx python-dotenv uvicorn
 
 export AGENTIC_SETTLE_API_KEY="your-key"       # free key at agenticsettle.io
 export X402_PAY_TO_ADDRESS="0xYourWalletAddress"
@@ -89,7 +89,7 @@ use as `X402_PAY_TO_ADDRESS`.
 ### 3. Test the full payment flow end to end
 
 ```bash
-pip install "x402[httpx]" eth-account
+pip install "x402[httpx,evm]"
 
 # Creates a local throwaway signing wallet (private key never printed —
 # written to test_payer.local.txt, gitignored).
