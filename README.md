@@ -38,7 +38,10 @@ has been run and verified end to end on Base Sepolia testnet.
 ```bash
 pip install "x402[fastapi,evm]" httpx python-dotenv uvicorn
 
-export AGENTIC_SETTLE_API_KEY="your-key"       # free key at agenticsettle.io
+# Get a free key instantly (no email round-trip, no credit card):
+#   curl -sX POST https://app.agenticsettle.io/v2/signup \
+#     -H "Content-Type: application/json" -d '{"email":"you@example.com"}'
+export AGENTIC_SETTLE_API_KEY="your-key"
 export X402_PAY_TO_ADDRESS="0xYourWalletAddress"
 
 uvicorn x402_verify_gateway:app --port 4021
