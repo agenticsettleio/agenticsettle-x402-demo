@@ -4,6 +4,9 @@ A reference integration showing an AI agent paying per-call in USDC — via
 the [x402 protocol](https://github.com/coinbase/x402) — to access
 [AgenticSettle](https://agenticsettle.io) VOP output verification.
 
+> **Testnet demo only.** Everything here runs on Base Sepolia with test USDC.
+> No real money moves, and this is not a production settlement path.
+
 AgenticSettle verifies AI agent work product (does the output actually
 meet the agreed criteria?) and conditionally settles payment based on the
 result. This demo shows that verification call itself being paid for
@@ -20,7 +23,7 @@ no human in the loop for the payment.
     verdict comes back `PARTIAL`, using x402's own built-in
     `set_settlement_overrides()` mechanism.
 - `generate_entity_secret.py` / `circle_client.py` / `create_wallet.py` —
-  provision a real Base Sepolia receiving wallet via [Circle's
+  provision a Base Sepolia (testnet) receiving wallet via [Circle's
   Developer-Controlled Wallets](https://developers.circle.com/wallets/dev-controlled)
   API, for use as `X402_PAY_TO_ADDRESS` above.
 - `generate_test_payer.py` / `test_payment.py` — a throwaway local test
@@ -105,8 +108,8 @@ python generate_test_payer.py
 python test_payment.py
 ```
 
-`test_payment.py` signs and submits a real x402 payment against the
-running server and prints the resulting VOP verdict — confirming the
+`test_payment.py` signs and submits a testnet x402 payment (test USDC)
+against the running server and prints the resulting VOP verdict — confirming the
 entire loop (agent pays → payment settles → verification runs → result
 returned) works without any human in the loop.
 
@@ -124,7 +127,7 @@ amount that can scale with the quality of what's being verified.
 |----------------------------|---------------------------------------|-----------------------------------|
 | `AGENTIC_SETTLE_API_KEY`   | (required)                            | AgenticSettle API key             |
 | `AGENTIC_SETTLE_BASE_URL`  | `https://app.agenticsettle.io`        | AgenticSettle backend             |
-| `X402_PAY_TO_ADDRESS`      | (required for real payments)          | Wallet receiving payment          |
+| `X402_PAY_TO_ADDRESS`      | (required)                          | Wallet receiving payment          |
 | `X402_FACILITATOR_URL`     | `https://x402.org/facilitator`        | x402 facilitator (testnet)        |
 | `X402_NETWORK`             | `eip155:84532` (Base Sepolia)         | CAIP-2 network id                 |
 | `X402_PRICE_USD`           | `$0.01`                               | Price per verification call       |
